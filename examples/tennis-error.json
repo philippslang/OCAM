@@ -1,0 +1,76 @@
+{
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    {
+      "ocam": "https://ocam.sport/ns#",
+      "domain": "ocam:domain",
+      "context": "ocam:context",
+      "sport": "ocam:sport",
+      "errorType": "ocam:errorType",
+      "cause": "ocam:cause"
+    }
+  ],
+  "id": "urn:uuid:f6a7b8c9-d0e1-2345-f012-678901234567",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "created": "2024-03-20T16:30:00Z",
+  "creator": {
+    "id": "https://example.org/coach/maria-santos",
+    "type": "Person",
+    "name": "Maria Santos"
+  },
+  "sport": "tennis",
+  "domain": "error",
+  "context": {
+    "stroke": "backhand",
+    "phase": "return-of-serve",
+    "score": "30-40"
+  },
+  "errorType": "unforced",
+  "cause": {
+    "primary": "technique",
+    "detail": "Wrist laid back too early, causing mishit"
+  },
+  "body": [
+    {
+      "type": "TextualBody",
+      "value": "This is the third time today you've mishit the backhand return when it's a big point. Look at your wrist position at contact - it's already laid back like you're going for a slice, but your body is set up for a drive. Trust your topspin backhand here. The serve was to your body, so just block it back deep and make them play.",
+      "purpose": "commenting",
+      "language": "en"
+    },
+    {
+      "type": "TextualBody",
+      "value": "pressure-point",
+      "purpose": "tagging"
+    },
+    {
+      "type": "TextualBody",
+      "value": "mishit",
+      "purpose": "tagging"
+    },
+    {
+      "type": "TextualBody",
+      "value": "wrist-position",
+      "purpose": "tagging"
+    }
+  ],
+  "target": {
+    "source": "https://videos.example.org/tennis/match-2024-03-20.mp4",
+    "type": "Video",
+    "selector": [
+      {
+        "type": "FragmentSelector",
+        "conformsTo": "http://www.w3.org/TR/media-frags/",
+        "value": "t=4521.8,4524.2"
+      },
+      {
+        "type": "SvgSelector",
+        "value": "<svg><circle cx=\"385\" cy=\"310\" r=\"30\" stroke=\"orange\" stroke-width=\"3\" fill=\"none\"/><line x1=\"385\" y1=\"280\" x2=\"385\" y2=\"250\" stroke=\"orange\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><text x=\"350\" y=\"245\" fill=\"orange\" font-size=\"12\">Wrist too open</text></svg>",
+        "refinedBy": {
+          "type": "FragmentSelector",
+          "value": "t=4523.1"
+        }
+      }
+    ]
+  }
+}

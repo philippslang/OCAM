@@ -1,0 +1,68 @@
+{
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    {
+      "ocam": "https://ocam.sport/ns#",
+      "domain": "ocam:domain",
+      "context": "ocam:context",
+      "intent": "ocam:intent",
+      "outcome": "ocam:outcome",
+      "sport": "ocam:sport",
+      "situation": "ocam:situation"
+    }
+  ],
+  "id": "urn:uuid:b2c3d4e5-f6a7-8901-bcde-f23456789012",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "created": "2024-03-15T11:45:00Z",
+  "creator": {
+    "id": "https://example.org/coach/maria-santos",
+    "type": "Person",
+    "name": "Maria Santos"
+  },
+  "sport": "tennis",
+  "domain": "tactics",
+  "context": {
+    "situation": "rally",
+    "phase": "neutral-to-offense"
+  },
+  "intent": "Build point with deep crosscourt balls before attacking",
+  "outcome": "Attempted winner from mid-court resulted in unforced error",
+  "body": [
+    {
+      "type": "TextualBody",
+      "value": "You had the right idea to go crosscourt, but you went for the winner too early. When you're inside the baseline like this, you have time - hit one more deep ball to pull them wider, then attack the open court.",
+      "purpose": "commenting",
+      "language": "en"
+    },
+    {
+      "type": "TextualBody",
+      "value": "shot-selection",
+      "purpose": "tagging"
+    },
+    {
+      "type": "TextualBody",
+      "value": "court-position",
+      "purpose": "tagging"
+    }
+  ],
+  "target": {
+    "source": "https://videos.example.org/tennis/match-2024-03-10.mp4",
+    "type": "Video",
+    "selector": [
+      {
+        "type": "FragmentSelector",
+        "conformsTo": "http://www.w3.org/TR/media-frags/",
+        "value": "t=1842.3,1848.7"
+      },
+      {
+        "type": "SvgSelector",
+        "value": "<svg><path d=\"M 200,450 L 380,120\" stroke=\"yellow\" stroke-width=\"4\" stroke-dasharray=\"10,5\" marker-end=\"url(#arrow)\"/><circle cx=\"200\" cy=\"450\" r=\"15\" fill=\"blue\"/><text x=\"210\" y=\"470\" fill=\"white\">You</text></svg>",
+        "refinedBy": {
+          "type": "FragmentSelector",
+          "value": "t=1845.0"
+        }
+      }
+    ]
+  }
+}

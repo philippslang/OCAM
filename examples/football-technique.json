@@ -1,0 +1,70 @@
+{
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    {
+      "ocam": "https://ocam.sport/ns#",
+      "domain": "ocam:domain",
+      "context": "ocam:context",
+      "intent": "ocam:intent",
+      "outcome": "ocam:outcome",
+      "sport": "ocam:sport",
+      "position": "ocam:position"
+    }
+  ],
+  "id": "urn:uuid:c3d4e5f6-a7b8-9012-cdef-345678901234",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "created": "2024-03-18T14:20:00Z",
+  "creator": {
+    "id": "https://example.org/coach/james-wilson",
+    "type": "Person",
+    "name": "James Wilson",
+    "role": "Quarterbacks Coach"
+  },
+  "sport": "american-football",
+  "domain": "technique",
+  "context": {
+    "position": "quarterback",
+    "phase": "ball-handling",
+    "play-type": "handoff"
+  },
+  "intent": "Clean handoff to running back on inside zone",
+  "outcome": "Ball placement too high causing fumble risk",
+  "body": [
+    {
+      "type": "TextualBody",
+      "value": "On the mesh point, you're placing the ball in Marcus's chest instead of his stomach. Watch the freeze frame - his arms are having to come up to secure it. Put the ball right in the bread basket, belly button level, and let him clamp down.",
+      "purpose": "commenting",
+      "language": "en"
+    },
+    {
+      "type": "TextualBody",
+      "value": "ball-security",
+      "purpose": "tagging"
+    },
+    {
+      "type": "TextualBody",
+      "value": "mesh-point",
+      "purpose": "tagging"
+    }
+  ],
+  "target": {
+    "source": "https://videos.example.org/football/practice-2024-03-18.mp4",
+    "type": "Video",
+    "selector": [
+      {
+        "type": "FragmentSelector",
+        "conformsTo": "http://www.w3.org/TR/media-frags/",
+        "value": "t=423.1,425.8"
+      },
+      {
+        "type": "SvgSelector",
+        "value": "<svg><ellipse cx=\"512\" cy=\"290\" rx=\"40\" ry=\"25\" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/><text x=\"560\" y=\"295\" fill=\"red\" font-size=\"14\">Too high</text></svg>",
+        "refinedBy": {
+          "type": "FragmentSelector",
+          "value": "t=424.3"
+        }
+      }
+    ]
+  }
+}
