@@ -65,3 +65,9 @@ We define an open sport-specific annotation profile for stills, videos and strea
 
 ## Examples
 Need to cover both technical and tactical level. For tennis, this means supporting both feedback on e.g. forehand takeaway and court position. For American Football e.g. both ball handling and passing to open player.
+
+### Selectors
+- FragmentSelector http://www.w3.org/TR/media-frags/
+    - Associates annotations with time in video 
+- SvgSelector
+    - Annotations in form of drawings in SVG format

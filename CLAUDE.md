@@ -8,13 +8,6 @@ This is the **Open Coaching Annotation Model (OCAM)** specification repository. 
 
 This is a **documentation-only repository** - no code, build system, or tests. The specification enables interoperability between coaching tools across sports.
 
-## Related Repositories
-
-The OCAM specification is implemented by:
-- **kumakivio-app** - Next.js web application for video annotation
-- **kumakivio** - Flutter cross-platform application (legacy)
-- **kumakivio-ai** - Python ML pipeline for automated video analysis
-
 ## OCAM Core Concepts
 
 When working with this specification, understand these key design principles:
