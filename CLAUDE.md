@@ -44,3 +44,16 @@ See `/examples` for sample annotations demonstrating OCAM with tennis and Americ
 - Tactical analysis (court positioning, progression reads)
 - Error classification (separating observation from cause)
 - Step-by-step sequences (drill breakdowns)
+
+## Schema
+
+The formal JSON Schema is in `/schema/ocam-annotation.schema.json` (JSON Schema 2020-12).
+
+Validate annotations:
+```bash
+# Node.js with ajv
+npx ajv validate -s schema/ocam-annotation.schema.json -d examples/tennis-technique.json --spec=draft2020
+
+# Python with jsonschema
+python -c "import json; from jsonschema import validate, Draft202012Validator; validate(json.load(open('examples/tennis-technique.json')), json.load(open('schema/ocam-annotation.schema.json')), cls=Draft202012Validator)"
+```
