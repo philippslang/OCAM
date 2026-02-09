@@ -177,7 +177,29 @@ Conformance is determined by the presence and structure of fields defined herein
 | `generator`  | Tool that created it          | Optional                 |
 | `motivation` | Why the annotation exists     | Optional                 |
 
-
+```json
+{
+  "id": "urn:uuid:8f3c2e9c-2b2a-4a71-b4d3-8a1a8c5e9c33",
+  "type": "Annotation",
+  "creator": {
+    "id": "urn:uuid:coach-123",
+    "type": "Person",
+    "name": "Coach Smith"
+  },
+  "created": "2026-02-09T10:15:00Z",
+  "generator": {
+    "id": "https://example.org/app",
+    "type": "Software",
+    "name": "CoachingAgent"
+  },
+  "target": { /* media fragment */ },
+  "body": { /* description + svg */ },
+  "role": "observation",
+  "aspect": {
+    "domain": "technique"
+  }
+}
+```
 
 ## Rationale
 
