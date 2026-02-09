@@ -13,9 +13,11 @@ We define a sport annotation profile for streams, videos and stills built on top
    - Easy export/import
 - For federations:
    - Data portability
-   - Coach education consistency
+   - Coaching consistency
 
 ## V0
+For metadata see W3C fields below.
+
 ### Example
 ```json
 {
@@ -161,8 +163,20 @@ The intent of v0 is to establish a small, stable foundation that:
 
 Future versions may extend this model with additional semantics, controlled vocabularies, evaluation layers, and interaction models, while remaining backward compatible with v0.
 
-### W3C
-This model is a constrained profile of the W3C Web Annotation Data Model. It reuses the core Annotation, Target, and Selector concepts, including Media Fragments for temporal anchoring, while introducing domain-specific simplifications and extensions tailored to sport coaching. The profile restricts representation choices to improve implementability and interoperability, while remaining losslessly mappable to standard Web Annotations.
+### W3C Web Annotation Data Model
+This model is a constrained profile of the W3C Web Annotation Data Model. It reuses the core Annotation, Target, and Selector concepts, including Media Fragments for temporal anchoring, while introducing domain-specific simplifications and extensions tailored to sport coaching. The profile restricts representation choices to improve implementability and interoperability, while remaining losslessly mappable to standard Web Annotations. Annotations defined by this specification are instances of the W3C Web Annotation Data Model.
+Conformance is determined by the presence and structure of fields defined herein, not by an explicit schema reference embedded in each annotation. Use of Web Annotation metadata fields is strongly encouraged. This specification reuses the provenance and metadata properties defined by the Web Annotation Data Model, including creator, created, modified, and generator. These properties are optional unless otherwise stated.
+
+| Field        | Purpose                       | Notes                    |
+| ------------ | ----------------------------- | ------------------------ |
+| `id`         | Identifier for the annotation | URI or UUID              |
+| `type`       | Always `"Annotation"`         | Required                 |
+| `creator`    | Who created it                | Person, software, or org |
+| `created`    | When it was created           | ISO 8601                 |
+| `modified`   | Last modification time        | Optional                 |
+| `generator`  | Tool that created it          | Optional                 |
+| `motivation` | Why the annotation exists     | Optional                 |
+
 
 
 ## Rationale

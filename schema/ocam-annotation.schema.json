@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/sport-video-annotation/v0/schema.json",
-  "title": "Sport Video Annotation v0",
+  "title": "Open Coaching Annotation Model v0",
   "type": "object",
   "required": ["type", "id", "role", "target", "aspect", "body"],
   "properties": {
