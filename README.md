@@ -2,6 +2,33 @@
 
 We define a sport-specific annotation profile built on top of the W3C Web Annotation standard.
 
+## Example
+
+```json
+{
+  "type": "Annotation",
+  "id": "anno-001",
+  "role": "observation",
+  "target": {
+    "source": "video.mp4",
+    "selector": {
+      "type": "FragmentSelector",
+      "value": "t=12.40"
+    }
+  },
+  "aspect": {
+    "domain": "technique"
+  },
+  "body": {
+    "text": "Racket face opens here",
+    "svgSegments": [
+      "<line x1='820' y1='460' x2='900' y2='420' />",
+      "<line x1='820' y1='520' x2='900' y2='480' />"
+    ]
+  }
+}
+```
+
 ## V0
 A minimal sport video annotation model based on W3C Web Annotation, Media Fragments, and SVG primitives.
 
@@ -24,8 +51,6 @@ Excellent — that gives us a clean, principled v0.
 Below is a **ready-to-publish “Scope and Non-Goals” section** that matches the model you’ve designed and sets clear expectations.
 
 You can drop this directly into a spec, README, or proposal.
-
----
 
 ### Scope (v0)
 
@@ -82,8 +107,6 @@ v0 supports:
      * W3C Media Fragments
      * SVG for vector-based visual content
 
----
-
 #### Non-Goals (v0)
 
 Version 0 explicitly does **not** attempt to address the following:
@@ -121,7 +144,6 @@ Version 0 explicitly does **not** attempt to address the following:
 
    * v0 does not address authorship, roles, permissions, versioning, or review workflows.
 
----
 
 ### Design intent
 
@@ -151,8 +173,6 @@ In particular, the design prioritizes:
 * Reuse of existing, widely adopted web standards
 * A clear path for future extension without breaking compatibility
 
----
-
 ### Reuse of existing standards
 
 Rather than defining a new annotation mechanism, this model is intentionally based on the **W3C Web Annotation Data Model**.
@@ -171,8 +191,6 @@ By reusing these components, the model benefits from:
 
 Where the W3C model is intentionally generic, this profile introduces **domain-specific constraints and simplifications** to better fit coaching use cases.
 
----
-
 ### Minimal temporal anchoring
 
 Annotations are anchored in time using **Media Fragments**, which are designed to identify temporal segments of audiovisual media.
@@ -184,8 +202,6 @@ Only temporal selectors are included in v0. Spatial selectors are explicitly exc
 * Focus on the most common coaching practice: time-based feedback
 
 This choice does not prevent future versions from adding spatial selectors if needed.
-
----
 
 ### SVG for visual annotation content
 
@@ -199,8 +215,6 @@ SVG is used for visual content because it is:
 
 Rather than embedding full SVG documents, v0 allows **SVG segments** (individual elements such as `<line>` or `<path>`). This keeps annotations lightweight and easy to edit while leaving rendering decisions to consuming applications.
 
----
-
 ### Separation of role and content
 
 Each annotation declares a **role** (e.g. `observation`, `suggestion`) that captures the *intent* of the coaching action.
@@ -211,8 +225,6 @@ This reflects real coaching workflows, where:
 * Suggestions propose changes or alternatives
 
 Separating role from content allows multiple annotations at the same timestamp to coexist without ambiguity and enables user interfaces to present or filter them differently.
-
----
 
 ### High-level aspect classification
 
@@ -227,8 +239,6 @@ This provides:
 * A foundation for later refinement
 
 Detailed taxonomies and sport-specific vocabularies are deferred to future versions.
-
----
 
 ### Intentional simplicity in v0
 
@@ -246,8 +256,6 @@ These concerns are important, but including them in v0 would increase complexity
 
 Instead, v0 establishes a **stable core** that can be extended incrementally.
 
----
-
 ### Constrained profile rather than generic framework
 
 The W3C Web Annotation model is intentionally flexible, but that flexibility can make implementations inconsistent.
@@ -259,8 +267,6 @@ This specification defines a **constrained profile** by:
 * Restricting vocabularies where appropriate
 
 This improves interoperability and lowers the barrier to adoption while remaining compatible with the underlying standard.
-
----
 
 ### Forward compatibility
 
@@ -275,8 +281,6 @@ Future versions may introduce:
 * Real-time collaboration
 
 These can be added without invalidating v0 annotations or breaking existing implementations.
-
----
 
 ### Summary
 
@@ -298,8 +302,6 @@ v0 provides a practical foundation that is both usable today and extensible tomo
 Version 1 is expected to build on the stable foundation established in v0 by introducing **additional semantic depth and expressive power**, while preserving backward compatibility and implementation simplicity.
 
 The goal of v1 is **not** to fully model coaching or performance analysis, but to support richer coaching workflows that naturally emerge once basic annotation is in place.
-
----
 
 ### Extension principles
 
@@ -324,13 +326,9 @@ All v1 extensions should adhere to the following principles:
 
    * Where applicable, v1 should continue to reuse or align with W3C Web Annotation, Media Fragments, and related standards.
 
----
-
 ### Anticipated v1 extensions (non-exhaustive)
 
 The following areas are identified as **likely candidates** for v1 extensions. Their inclusion is justified by common coaching practice, but their exact design is intentionally left open.
-
----
 
 #### 1. Spatial selectors and regions of interest
 
@@ -346,8 +344,6 @@ Coaches often want to indicate *where* in the frame an observation applies (e.g.
   * Drawing visual explanations
 * Coordinate systems must be explicitly defined.
 
----
-
 #### 2. Aspect refinement and controlled vocabularies
 
 **Rationale**
@@ -358,8 +354,6 @@ High-level domains are sufficient for v0, but analysis and consistency benefit f
 * Domain values may be extended, but not replaced.
 * Additional fields (e.g. skill, phase, intent) should be nested under `aspect`.
 * Controlled vocabularies should be sport-agnostic at higher levels and sport-specific only where necessary.
-
----
 
 #### 3. Evaluation and outcome modeling
 
@@ -372,8 +366,6 @@ Coaches frequently evaluate performance, distinguish errors, and track progress.
 * Error, success, and outcome should not be conflated with technique or tactics.
 * Evaluation fields should remain optional and non-prescriptive.
 
----
-
 #### 4. Relationships between annotations
 
 **Rationale**
@@ -384,8 +376,6 @@ Coaching often involves connecting observations to suggestions, or grouping anno
 * Relationships should be explicit and typed (e.g. “suggests correction for”).
 * Annotations should remain independently valid.
 * Relationship modeling should not imply ordering unless explicitly stated.
-
----
 
 #### 5. Temporal refinement and frame accuracy
 
@@ -398,8 +388,6 @@ High-speed and multi-angle sport video often requires frame-level precision.
 * Frame or fps information should extend, not replace, temporal selectors.
 * Time ranges should be supported consistently.
 
----
-
 #### 6. Multiple bodies and media types
 
 **Rationale**
@@ -409,8 +397,6 @@ Future coaching tools may include audio notes, images, or external references.
 
 * Additional body types should follow the Web Annotation body model.
 * Text and SVG should remain first-class and sufficient for basic use.
-
----
 
 #### 7. Styling and rendering hints (non-normative)
 
@@ -423,8 +409,6 @@ Different tools may wish to visually distinguish observations, suggestions, or e
 * Semantic intent must not be encoded solely through visual style.
 * Accessibility considerations should be respected.
 
----
-
 ### What v1 should still avoid
 
 Even in v1, certain concerns should remain out of scope:
@@ -436,8 +420,6 @@ Even in v1, certain concerns should remain out of scope:
 
 These are better handled at the application or platform level.
 
----
-
 ### Evolution strategy
 
 The model is expected to evolve incrementally:
@@ -447,8 +429,6 @@ The model is expected to evolve incrementally:
 * Later versions may address **analysis, collaboration, and interoperability at scale**
 
 Each version should remain usable in isolation and understandable without requiring full adoption of future features.
-
----
 
 ### Summary
 
