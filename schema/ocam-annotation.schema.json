@@ -1,349 +1,93 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ocam.sport/schema/annotation.json",
-  "title": "OCAM Annotation",
-  "description": "Open Coaching Annotation Model - a sport-specific annotation profile built on W3C Web Annotation",
+  "$id": "https://example.org/sport-video-annotation/v0/schema.json",
+  "title": "Sport Video Annotation v0",
   "type": "object",
-  "required": ["@context", "type", "sport", "domain", "body", "target"],
+  "required": ["type", "id", "role", "target", "aspect", "body"],
   "properties": {
-    "@context": {
-      "description": "JSON-LD context combining W3C Web Annotation and OCAM namespaces",
-      "oneOf": [
-        { "type": "string", "const": "http://www.w3.org/ns/anno.jsonld" },
-        {
-          "type": "array",
-          "prefixItems": [
-            { "type": "string", "const": "http://www.w3.org/ns/anno.jsonld" },
-            { "$ref": "#/$defs/ocamContext" }
-          ],
-          "items": false,
-          "minItems": 2,
-          "maxItems": 2
-        }
-      ]
-    },
-    "id": {
-      "type": "string",
-      "format": "uri",
-      "description": "Unique identifier for the annotation (URN or URL)"
-    },
     "type": {
-      "type": "string",
       "const": "Annotation"
     },
-    "motivation": {
+
+    "id": {
       "type": "string",
-      "enum": ["commenting", "describing", "tagging", "highlighting", "classifying"],
-      "description": "W3C Web Annotation motivation"
+      "description": "Unique identifier for the annotation"
     },
-    "created": {
+
+    "role": {
       "type": "string",
-      "format": "date-time",
-      "description": "ISO 8601 timestamp when annotation was created"
+      "enum": ["observation", "suggestion"],
+      "description": "Coaching role of the annotation"
     },
-    "modified": {
-      "type": "string",
-      "format": "date-time",
-      "description": "ISO 8601 timestamp when annotation was last modified"
-    },
-    "creator": {
-      "$ref": "#/$defs/agent",
-      "description": "The coach or analyst who created this annotation"
-    },
-    "sport": {
-      "type": "string",
-      "description": "Sport identifier (e.g., tennis, american-football, golf, soccer)",
-      "examples": ["tennis", "american-football", "golf", "soccer", "basketball"]
-    },
-    "domain": {
-      "type": "string",
-      "enum": ["technique", "tactics", "error"],
-      "description": "Primary classification of the annotation"
-    },
-    "context": {
-      "$ref": "#/$defs/annotationContext",
-      "description": "Sport-specific context for the annotation"
-    },
-    "intent": {
-      "type": "string",
-      "description": "What the athlete was trying to accomplish"
-    },
-    "outcome": {
-      "type": "string",
-      "description": "What actually happened as a result"
-    },
-    "errorType": {
-      "type": "string",
-      "enum": ["unforced", "forced"],
-      "description": "Classification of error (only when domain is 'error')"
-    },
-    "cause": {
-      "$ref": "#/$defs/errorCause",
-      "description": "Analysis of why the error occurred"
-    },
-    "sequence": {
-      "$ref": "#/$defs/sequence",
-      "description": "Step-by-step breakdown for technique instruction"
-    },
-    "body": {
-      "oneOf": [
-        { "$ref": "#/$defs/body" },
-        { "type": "array", "items": { "$ref": "#/$defs/body" }, "minItems": 1 }
-      ],
-      "description": "The content of the annotation (comments, tags, etc.)"
-    },
-    "target": {
-      "$ref": "#/$defs/target",
-      "description": "The video segment and spatial region being annotated"
-    }
-  },
-  "$defs": {
-    "ocamContext": {
-      "type": "object",
-      "properties": {
-        "ocam": { "type": "string", "const": "https://ocam.sport/ns#" }
-      },
-      "required": ["ocam"],
-      "additionalProperties": {
-        "type": "string",
-        "pattern": "^ocam:"
-      }
-    },
-    "agent": {
-      "type": "object",
-      "required": ["type", "name"],
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uri"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["Person", "Organization", "Software"]
-        },
-        "name": {
-          "type": "string"
-        },
-        "role": {
-          "type": "string",
-          "description": "Role of the creator (e.g., Head Coach, Assistant, Analyst)"
-        }
-      }
-    },
-    "annotationContext": {
-      "type": "object",
-      "description": "Sport-specific context fields",
-      "properties": {
-        "stroke": {
-          "type": "string",
-          "description": "The stroke or action type (e.g., forehand, backhand, serve)"
-        },
-        "phase": {
-          "type": "string",
-          "description": "Phase of the action (e.g., takeaway, contact, follow-through)"
-        },
-        "situation": {
-          "type": "string",
-          "description": "Game situation (e.g., rally, return-of-serve, 3rd-and-7)"
-        },
-        "position": {
-          "type": "string",
-          "description": "Player position (e.g., quarterback, wide-receiver)"
-        },
-        "formation": {
-          "type": "string",
-          "description": "Team formation or setup"
-        },
-        "coverage": {
-          "type": "string",
-          "description": "Defensive coverage type"
-        },
-        "play-type": {
-          "type": "string",
-          "description": "Type of play being executed"
-        },
-        "score": {
-          "type": "string",
-          "description": "Current score context"
-        }
-      },
-      "additionalProperties": {
-        "type": "string"
-      }
-    },
-    "errorCause": {
-      "type": "object",
-      "required": ["primary"],
-      "properties": {
-        "primary": {
-          "type": "string",
-          "enum": ["technique", "tactics", "physical", "mental"],
-          "description": "Primary cause category"
-        },
-        "detail": {
-          "type": "string",
-          "description": "Specific description of what caused the error"
-        }
-      }
-    },
-    "sequence": {
-      "type": "object",
-      "required": ["title", "steps"],
-      "properties": {
-        "title": {
-          "type": "string",
-          "description": "Name of the technique or drill"
-        },
-        "steps": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/sequenceStep" },
-          "minItems": 2
-        }
-      }
-    },
-    "sequenceStep": {
-      "type": "object",
-      "required": ["step", "label"],
-      "properties": {
-        "step": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "label": {
-          "type": "string",
-          "description": "Description of this step"
-        },
-        "timestamp": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Relative timestamp within the sequence (seconds)"
-        }
-      }
-    },
-    "body": {
-      "type": "object",
-      "required": ["type", "value"],
-      "properties": {
-        "type": {
-          "type": "string",
-          "const": "TextualBody"
-        },
-        "value": {
-          "type": "string",
-          "description": "The text content"
-        },
-        "purpose": {
-          "type": "string",
-          "enum": ["commenting", "tagging", "describing"],
-          "description": "Purpose of this body element"
-        },
-        "language": {
-          "type": "string",
-          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
-          "description": "BCP 47 language tag"
-        },
-        "category": {
-          "type": "string",
-          "description": "Category for organizing tags"
-        }
-      }
-    },
+
     "target": {
       "type": "object",
-      "required": ["source"],
+      "required": ["source", "selector"],
       "properties": {
         "source": {
           "type": "string",
-          "format": "uri",
-          "description": "URI of the video or image"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["Video", "Image"],
-          "default": "Video"
-        },
-        "duration": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Total duration of the video in seconds"
-        },
-        "frameRate": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Frame rate of the video (fps)"
-        },
-        "hash": {
-          "$ref": "#/$defs/contentHash",
-          "description": "Content hash for integrity verification"
+          "description": "URI or identifier of the video resource"
         },
         "selector": {
-          "oneOf": [
-            { "$ref": "#/$defs/selector" },
-            { "type": "array", "items": { "$ref": "#/$defs/selector" }, "minItems": 1 }
+          "type": "object",
+          "required": ["type", "value"],
+          "properties": {
+            "type": {
+              "const": "FragmentSelector"
+            },
+            "value": {
+              "type": "string",
+              "description": "Media Fragment temporal selector (e.g. t=12.40 or t=12.40,13.10)"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "aspect": {
+      "type": "object",
+      "required": ["domain"],
+      "properties": {
+        "domain": {
+          "type": "string",
+          "enum": [
+            "technique",
+            "tactics",
+            "physical",
+            "mental",
+            "rules",
+            "other"
           ],
-          "description": "Selectors to identify the annotated region"
+          "description": "High-level performance domain of the annotation"
         }
-      }
+      },
+      "additionalProperties": false
     },
-    "contentHash": {
+
+    "body": {
       "type": "object",
-      "required": ["algorithm", "value"],
       "properties": {
-        "algorithm": {
+        "text": {
           "type": "string",
-          "enum": ["sha256", "sha512", "md5"]
+          "description": "Free-form textual content of the annotation"
         },
-        "value": {
-          "type": "string",
-          "pattern": "^[a-fA-F0-9]+$"
+        "svgSegments": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "SVG element fragment (e.g. <line>, <path>)"
+          },
+          "description": "List of SVG segments representing visual annotation content"
         }
-      }
-    },
-    "selector": {
-      "oneOf": [
-        { "$ref": "#/$defs/fragmentSelector" },
-        { "$ref": "#/$defs/svgSelector" }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        { "required": ["text"] },
+        { "required": ["svgSegments"] }
       ]
-    },
-    "fragmentSelector": {
-      "type": "object",
-      "required": ["type", "value"],
-      "properties": {
-        "type": {
-          "type": "string",
-          "const": "FragmentSelector"
-        },
-        "conformsTo": {
-          "type": "string",
-          "const": "http://www.w3.org/TR/media-frags/",
-          "description": "Media Fragments URI specification"
-        },
-        "value": {
-          "type": "string",
-          "pattern": "^t=[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)?$",
-          "description": "Temporal fragment (e.g., t=12.5 or t=12.5,15.8)",
-          "examples": ["t=12.5", "t=12.5,15.8"]
-        }
-      }
-    },
-    "svgSelector": {
-      "type": "object",
-      "required": ["type", "value"],
-      "properties": {
-        "type": {
-          "type": "string",
-          "const": "SvgSelector"
-        },
-        "value": {
-          "type": "string",
-          "pattern": "^<svg>.*</svg>$",
-          "description": "SVG markup for spatial annotation"
-        },
-        "refinedBy": {
-          "$ref": "#/$defs/fragmentSelector",
-          "description": "Temporal anchor for this spatial annotation"
-        }
-      }
     }
-  }
+  },
+  "additionalProperties": false
 }
