@@ -1,9 +1,22 @@
 # Open Coaching Annotation Model (OCAM)
 
-We define a sport-specific annotation profile built on top of the W3C Web Annotation standard.
+We define a sport annotation profile for streams, videos and stills built on top of the W3C Web Annotation standard.
 
-## Example
+## Why
+- For coaches
+   - Same annotations usable across tools
+   - Long-term athlete development tracking
+   - Share feedback between clubs, federations, analysts
+- For developers:
+   - Clear schema
+   - No lock-in
+   - Easy export/import
+- For federations:
+   - Data portability
+   - Coach education consistency
 
+## V0
+### Example
 ```json
 {
   "type": "Annotation",
@@ -20,7 +33,7 @@ We define a sport-specific annotation profile built on top of the W3C Web Annota
     "domain": "technique"
   },
   "body": {
-    "text": "Racket face opens here",
+    "description": "Racket face opens",
     "svgSegments": [
       "<line x1='820' y1='460' x2='900' y2='420' />",
       "<line x1='820' y1='520' x2='900' y2='480' />"
@@ -29,34 +42,26 @@ We define a sport-specific annotation profile built on top of the W3C Web Annota
 }
 ```
 
-## V0
-A minimal sport video annotation model based on W3C Web Annotation, Media Fragments, and SVG primitives.
-
+### Components
+```
 Annotation
 ├── id
 ├── role                  (observation | suggestion)
-├── target
+├── target                -> as in W3C Web Annotation
 │   ├── source
 │   └── selector          (FragmentSelector)
 ├── aspect
 │   └── domain            (technique | tactics | physical | mental | rules)
 └── body
-    ├── text (optional)
-    └── svgSegments (0..n)
+    ├── description
+    └── svgSegments       (0..n)
+```
 
+### Scope
 
-Later: evaluation (outcome, error/success), relationships (sequence, related, consequence), spatial selector, adding frame and fps to fragmentselector for precision
+Version 0 defines a minimal, interoperable model for annotating sport video for coaching purposes.
 
-Excellent — that gives us a clean, principled v0.
-Below is a **ready-to-publish “Scope and Non-Goals” section** that matches the model you’ve designed and sets clear expectations.
-
-You can drop this directly into a spec, README, or proposal.
-
-### Scope (v0)
-
-Version 0 defines a **minimal, interoperable model for annotating sport video for coaching purposes**.
-
-The scope of v0 is intentionally limited to support **core coaching use cases** while remaining easy to implement and aligned with existing web standards.
+The scope of v0 is intentionally limited to support core coaching use cases while remaining easy to implement and aligned with existing web standards.
 
 #### In scope
 
@@ -95,7 +100,7 @@ v0 supports:
 
    * Annotations may include:
 
-     * Free-form text
+     * Free-form description
      * One or more SVG segments representing drawings (e.g. lines, arrows, paths).
    * SVG content is treated as visual explanation, not as a spatial selector.
 
@@ -107,7 +112,7 @@ v0 supports:
      * W3C Media Fragments
      * SVG for vector-based visual content
 
-#### Non-Goals (v0)
+#### Non-Goals 
 
 Version 0 explicitly does **not** attempt to address the following:
 
@@ -147,7 +152,7 @@ Version 0 explicitly does **not** attempt to address the following:
 
 ### Design intent
 
-The intent of v0 is to establish a **small, stable foundation** that:
+The intent of v0 is to establish a small, stable foundation that:
 
 * Reflects real coaching practice
 * Encourages interoperability between tools
@@ -156,7 +161,7 @@ The intent of v0 is to establish a **small, stable foundation** that:
 
 Future versions may extend this model with additional semantics, controlled vocabularies, evaluation layers, and interaction models, while remaining backward compatible with v0.
 
-## Notes
+### W3C
 This model is a constrained profile of the W3C Web Annotation Data Model. It reuses the core Annotation, Target, and Selector concepts, including Media Fragments for temporal anchoring, while introducing domain-specific simplifications and extensions tailored to sport coaching. The profile restricts representation choices to improve implementability and interoperability, while remaining losslessly mappable to standard Web Annotations.
 
 
@@ -164,7 +169,7 @@ This model is a constrained profile of the W3C Web Annotation Data Model. It reu
 
 ### Design goals
 
-The primary goal of this model is to enable **simple, interoperable video annotations for sport coaching** that can be shared across tools, sports, and contexts.
+The primary goal of this model is to enable simple, interoperable video annotations for sport coaching that can be shared across tools, sports, and contexts.
 
 In particular, the design prioritizes:
 
@@ -175,13 +180,13 @@ In particular, the design prioritizes:
 
 ### Reuse of existing standards
 
-Rather than defining a new annotation mechanism, this model is intentionally based on the **W3C Web Annotation Data Model**.
+Rather than defining a new annotation mechanism, this model is intentionally based on the W3C Web Annotation Data Model.
 
 Key elements are reused directly:
 
 * The `Annotation` concept as the top-level unit
-* The separation between **target** (what is annotated) and **body** (the annotation content)
-* The use of **Media Fragments (`FragmentSelector`)** for temporal anchoring of video
+* The separation between `target` (what is annotated) and `body` (the annotation content)
+* The use of Media Fragments (`FragmentSelector`) for temporal anchoring of video
 
 By reusing these components, the model benefits from:
 
@@ -189,11 +194,11 @@ By reusing these components, the model benefits from:
 * Existing tooling and expertise
 * Long-term stability
 
-Where the W3C model is intentionally generic, this profile introduces **domain-specific constraints and simplifications** to better fit coaching use cases.
+Where the W3C model is intentionally generic, this profile introduces domain-specific constraints and simplifications to better fit coaching use cases.
 
 ### Minimal temporal anchoring
 
-Annotations are anchored in time using **Media Fragments**, which are designed to identify temporal segments of audiovisual media.
+Annotations are anchored in time using Media Fragments, which are designed to identify temporal segments of audiovisual media.
 
 Only temporal selectors are included in v0. Spatial selectors are explicitly excluded to:
 
@@ -205,7 +210,7 @@ This choice does not prevent future versions from adding spatial selectors if ne
 
 ### SVG for visual annotation content
 
-Coaches frequently use **drawings** (lines, arrows, shapes) to explain movement, positioning, and intent.
+Coaches frequently use drawings (lines, arrows, shapes) to explain movement, positioning, and intent.
 
 SVG is used for visual content because it is:
 
@@ -213,11 +218,11 @@ SVG is used for visual content because it is:
 * Expressive enough for common coaching drawings
 * Widely supported and web-native
 
-Rather than embedding full SVG documents, v0 allows **SVG segments** (individual elements such as `<line>` or `<path>`). This keeps annotations lightweight and easy to edit while leaving rendering decisions to consuming applications.
+Rather than embedding full SVG documents, v0 allows SVG segment(individual elements such as `<line>` or `<path>`). This keeps annotations lightweight and easy to edit while leaving rendering decisions to consuming applications.
 
 ### Separation of role and content
 
-Each annotation declares a **role** (e.g. `observation`, `suggestion`) that captures the *intent* of the coaching action.
+Each annotation declares a `role` (e.g. `observation`, `suggestion`) that captures the intent of the coaching action.
 
 This reflects real coaching workflows, where:
 

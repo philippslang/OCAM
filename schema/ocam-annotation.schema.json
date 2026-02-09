@@ -69,9 +69,9 @@
     "body": {
       "type": "object",
       "properties": {
-        "text": {
+        "description": {
           "type": "string",
-          "description": "Free-form textual content of the annotation"
+          "description": "Free-form textual description of the annotation"
         },
         "svgSegments": {
           "type": "array",
@@ -84,7 +84,7 @@
       },
       "additionalProperties": false,
       "anyOf": [
-        { "required": ["text"] },
+        { "required": ["description"] },
         { "required": ["svgSegments"] }
       ]
     }

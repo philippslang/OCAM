@@ -1,7 +1,7 @@
 # Contributor Guidelines
 This project defines an interoperable model for annotating sport video for coaching purposes.
 
-Contributions are welcome, but the long-term goal is **stability and interoperability**, not feature completeness. These guidelines exist to ensure that extensions remain coherent, implementable, and aligned with the project’s design principles.
+Contributions are welcome, but the long-term goal is stability and interoperability, not feature completeness. These guidelines exist to ensure that extensions remain coherent, implementable, and aligned with the project’s design principles.
 
 ## 1. Core principles
 All contributions must respect the following principles:
@@ -13,7 +13,7 @@ All contributions must respect the following principles:
 
 ### 1.2 Minimalism first
 * Do not add fields unless there is a clear, demonstrated coaching use case.
-* Prefer **composition over expansion** (add a new object rather than extending many existing ones).
+* Prefer composition over expansion (add a new object rather than extending many existing ones).
 * If a feature can be implemented at the application level, it probably does not belong in the core model.
 
 ### 1.3 Separation of concerns
@@ -144,7 +144,7 @@ A strong contribution typically:
 * Respects the spirit of v0
 
 ## 10. Final note to contributors
-This project values **restraint as much as innovation**.
+This project values restraint as much as innovation.
 
 The most valuable contributions are often those that:
 * Say “not yet”
